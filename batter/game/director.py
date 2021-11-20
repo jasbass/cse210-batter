@@ -1,4 +1,7 @@
 from time import sleep
+from game.actor import Actor
+from game.point import Point
+from game import constants
 
 import raylibpy
 from game import constants
@@ -33,14 +36,12 @@ class Director:
             self._cue_action("update")
             self._cue_action("output")
 
-            # TODO: Add some logic like the following to handle game over conditions
-            # if len(self._cast["balls"]) == 0:
-            #     # Game over
-            #     self._keep_playing = False
+            if len(self._cast["balls"]) == 0:
+                # Game over
+                self._game_over_screen()
 
             if raylibpy.window_should_close():
                 self._keep_playing = False
-
 
     def _cue_action(self, tag):
         """Executes the actions with the given tag.
@@ -50,3 +51,8 @@ class Director:
         """ 
         for action in self._script[tag]:
             action.execute(self._cast)
+
+    def _game_over_screen(self):
+        game_over = Actor()
+        game_over.set_text('Game Over')
+        game_over.set_position(Point(constants.MAX_X / 2, constants.MAX_Y / 2))
