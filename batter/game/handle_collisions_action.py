@@ -1,5 +1,8 @@
 from game import constants
 from game.action import Action
+import random
+from game.ball import Ball
+from game.point import Point
 
 class HandleCollisionsAction(Action):
     def __init__(self, physics_service, audio_service):
@@ -36,7 +39,16 @@ class HandleCollisionsAction(Action):
                     bottom_edge = brick.get_bottom_edge()
                     if ((bottom_edge - vertical_bounce_area) <= ball.get_top_edge() <= bottom_edge) or ((top_edge + vertical_bounce_area) >= ball.get_bottom_edge() >= top_edge):
                         ball.bounce_vertical()
-                        print('triggered')
                     cast['bricks'].remove(brick)
+                    chance = random.randint(1,10)
+                    if chance == 1:
+                        self._spawn_new_ball(cast)
                     self._audio_service.play_sound(constants.SOUND_BOUNCE)
+
+    def _spawn_new_ball(self, cast):
+        ball = Ball()
+        ball.set_position(Point(constants.BALL_X, constants.BALL_Y))
+        ball.set_velocity(Point(constants.BALL_DX, constants.BALL_DY))
+        cast['balls'].append(ball)
+
                     

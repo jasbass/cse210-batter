@@ -34,15 +34,21 @@ def main():
             cast['bricks'].append(brick)
 
     cast["balls"] = []
-    ball = Ball()
-    ball.set_position(Point(constants.BALL_X, constants.BALL_Y))
-    ball.set_velocity(Point(constants.BALL_DX, constants.BALL_DY))
-    cast['balls'].append(ball)
+    for _ in range(1):
+        ball = Ball()
+        ball.set_position(Point(constants.BALL_X, constants.BALL_Y))
+        ball.set_velocity(Point(constants.BALL_DX, constants.BALL_DY))
+        cast['balls'].append(ball)
 
     cast["paddle"] = []
     paddle = Paddle()
     paddle.set_position(Point(constants.PADDLE_X, constants.PADDLE_Y))
     cast['paddle'].append(paddle)
+
+    cast['game_over'] = []
+    game_over = Actor()
+    game_over.set_position(Point((constants.MAX_X / 2 - 50), constants.MAX_Y / 2))
+    cast['game_over'].append(game_over)
     
     # Create the script {key: tag, value: list}
     script = {}

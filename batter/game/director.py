@@ -53,6 +53,6 @@ class Director:
             action.execute(self._cast)
 
     def _game_over_screen(self):
-        game_over = Actor()
+        game_over = self._cast['game_over'][0]
         game_over.set_text('Game Over')
-        game_over.set_position(Point(constants.MAX_X / 2, constants.MAX_Y / 2))
+        
